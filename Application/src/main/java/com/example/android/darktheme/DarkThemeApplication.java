@@ -18,10 +18,14 @@ package com.example.android.darktheme;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
 public class DarkThemeApplication extends Application {
+
+    public static final String TAG = "DarkThemeApplication";
 
     public void onCreate() {
         super.onCreate();
@@ -29,5 +33,11 @@ public class DarkThemeApplication extends Application {
                 PreferenceManager.getDefaultSharedPreferences(this);
         String themePref = sharedPreferences.getString("themePref", ThemeHelper.DEFAULT_MODE);
         ThemeHelper.applyTheme(themePref);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d(TAG, "Application onConfigurationChanged");
     }
 }

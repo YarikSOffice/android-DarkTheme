@@ -16,8 +16,10 @@
 
 package com.example.android.darktheme;
 
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -28,6 +30,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
+
+import static com.example.android.darktheme.DarkThemeApplication.TAG;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -117,5 +121,11 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragment_layout, fragment, tag)
                 .commit();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.d(TAG, "Activity onConfigurationChanged");
     }
 }
