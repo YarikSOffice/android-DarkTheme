@@ -16,8 +16,11 @@
 
 package com.example.android.darktheme;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -30,6 +33,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "TAG";
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             showFragment(WelcomeFragment.TAG);
         }
+
+        Log.d(TAG, "Application context: " + getUiMode(getApplication()));
+        Log.d(TAG, "Activity context: " + getUiMode(this));
     }
 
     @Override
@@ -117,5 +125,17 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragment_layout, fragment, tag)
                 .commit();
+    }
+
+    private String getUiMode(Context c) {
+        int mode = c.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (mode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+                return "NIGHT_NO";
+            case Configuration.UI_MODE_NIGHT_YES:
+                return "NIGHT_YES";
+            default:
+                return "UNKNOWN";
+        }
     }
 }
