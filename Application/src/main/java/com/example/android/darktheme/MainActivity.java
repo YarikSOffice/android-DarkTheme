@@ -127,5 +127,18 @@ public class MainActivity extends AppCompatActivity {
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         Log.d(TAG, "Activity onConfigurationChanged");
+        Log.d(TAG, "uiMode " + getUiMode(newConfig));
+    }
+
+    private String getUiMode(Configuration config) {
+        int mode = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (mode) {
+            case Configuration.UI_MODE_NIGHT_NO:
+                return "NIGHT_NO";
+            case Configuration.UI_MODE_NIGHT_YES:
+                return "NIGHT_YES";
+            default:
+                return "UNKNOWN";
+        }
     }
 }
